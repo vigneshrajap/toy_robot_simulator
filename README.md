@@ -22,17 +22,17 @@ colcon build --symlink-install
 source install/setup.bash
 ```
 2. To test the "toy robot simulator" functionality via client node, do the following
-```
 
 **Run (manual)**
-- Launch the robot node in one terminal:
+
+Launch the robot node in one terminal:
 
 ```bash
 source install/setup.bash
 ros2 launch toy_robot_simulator robot_launch.py
 ```
 
-- In another terminal run the command client to send a sample command sequence:
+In another terminal run the command client to send a sample command sequence:
 
 ```bash
 source install/setup.bash
@@ -41,7 +41,7 @@ ros2 run toy_robot_simulator command_client
 
 You should see the client log a `Robot Report: X,Y,F` message after the `REPORT` command.
 
-- Another way to send commands directly to robot via command line will be using `ros2 topic pub`. To do that, run the shell script to send a sample command sequence:
+Another way to send commands directly to robot via command line will be using `ros2 topic pub`. To do that, run the shell script to send a sample command sequence:
 
 ```bash
 ~/ros2_ws/src/toy_robot_simulator/scripts/sample_test.sh
