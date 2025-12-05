@@ -31,4 +31,5 @@ def main():
         pass
     finally:
         c.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()

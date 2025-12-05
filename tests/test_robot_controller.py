@@ -22,29 +22,32 @@ class TestRobotController(unittest.TestCase):
         msg.data = cmd
         self.node.command_callback(msg)
 
-    def test_place_valid(self):
+    def test_place(self):
+        # Test valid place
         self.publish_cmd("PLACE 1,2,NORTH")
-        self.assertEqual((self.node.x, self.node.y, self.node.f), (1,2,"NORTH"))
+        self.assertEqual((self.node.robot.x, self.node.robot.y, self.node.robot.f), (1,2,"NORTH"))
+        # Test invalid place
+        self.publish_cmd("PLACE 6,2,EAST")
+        self.assertEqual((self.node.robot.x, self.node.robot.y, self.node.robot.f), (1,2,"NORTH")) 
 
     def test_move_north(self):
+        # Test moving north
         self.publish_cmd("PLACE 0,0,NORTH")
         self.publish_cmd("MOVE")
-        self.assertEqual((self.node.x, self.node.y), (0,1))
+        self.assertEqual((self.node.robot.x, self.node.robot.y), (0,1))
 
     def test_move_blocked(self):
         self.publish_cmd("PLACE 0,4,NORTH")
         self.publish_cmd("MOVE")
-        self.assertEqual((self.node.x, self.node.y), (0,4))
+        self.assertEqual((self.node.robot.x, self.node.robot.y), (0,4))
 
-    def test_rotate_left(self):
+    def test_rotate(self):
         self.publish_cmd("PLACE 0,0,NORTH")
         self.publish_cmd("LEFT")
-        self.assertEqual(self.node.f, "WEST")
-
-    def test_rotate_right(self):
+        self.assertEqual(self.node.robot.f, "WEST")
         self.publish_cmd("PLACE 0,0,NORTH")
         self.publish_cmd("RIGHT")
-        self.assertEqual(self.node.f, "EAST")
+        self.assertEqual(self.node.robot.f, "EAST")
 
     def test_report_output(self):
         self.publish_cmd("PLACE 2,3,EAST")
